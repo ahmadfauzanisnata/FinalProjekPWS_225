@@ -1567,17 +1567,6 @@ function getUserDashboardHtml(firstName, email, apiKeys, totalKeys, activeKeys) 
                     </div>
                 </div>
 
-                <div class="main-content">
-                    <div class="sidebar">
-                        <h2><i class="fas fa-bars"></i> Menu</h2>
-                        <ul class="nav-menu">
-                            <li><a href="#api-keys" class="active"><i class="fas fa-key"></i> API Keys</a></li>
-                            <li><a href="#usage"><i class="fas fa-chart-bar"></i> Usage Analytics</a></li>
-                            <li><a href="#billing"><i class="fas fa-credit-card"></i> Billing</a></li>
-                            <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
-                            <li><a href="#support"><i class="fas fa-question-circle"></i> Support</a></li>
-                        </ul>
-                    </div>
 
                     <div class="content-area">
                         <div class="section-header">
@@ -2205,9 +2194,8 @@ function getAdminDashboardHtml(adminEmail, users, apiKeys) {
     `;
 }
 
-// ============================================
+
 // EDIT USER FORM HTML
-// ============================================
 function getEditUserForm(user) {
     const content = `
         <h2><i class="fas fa-user-edit"></i> Edit User: ${user.first_name} ${user.last_name}</h2>

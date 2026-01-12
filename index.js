@@ -270,7 +270,7 @@ app.get('/register', (req, res) => {
     res.send(getRegisterForm());
 });
 
-// Proses login - DIPERBAIKI
+// Proses login 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
     
@@ -304,7 +304,7 @@ app.post('/login', (req, res) => {
         
         // Untuk testing, jika password adalah 'admin123' (plain text)
         // Hapus ini di production!
-        if (password === 'admin123' && user.email === 'admin@api.com') {
+        if (password === 'admin1234' && user.email === 'admin@api.com') {
             console.log('Admin login with default password');
             req.session.userId = user.id;
             req.session.email = user.email;
@@ -313,7 +313,7 @@ app.post('/login', (req, res) => {
             req.session.role = user.role || 'admin';
             
             // Hash password untuk admin
-            const hashedPassword = await bcrypt.hash('admin123', saltRounds);
+            const hashedPassword = await bcrypt.hash('admin1234', saltRounds);
             db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, user.id], (err) => {
                 if (err) console.error('Error updating password:', err);
             });
@@ -346,7 +346,7 @@ app.post('/login', (req, res) => {
     });
 });
 
-// Proses register - DIPERBAIKI
+// Proses register 
 app.post('/register', async (req, res) => {
     const { firstName, lastName, email, password, confirmPassword } = req.body;
     
@@ -426,14 +426,13 @@ app.get('/logout', (req, res) => {
 });
 
 // --- User Routes ---
-
-// Dashboard User - DIPERBAIKI
+// Dashboard User
 app.get('/user/dashboard', isUser, (req, res) => {
     const userId = req.session.userId;
     
     console.log('Loading user dashboard for user ID:', userId);
     
-    // Query yang DIPERBAIKI
+    // Query yang 
     const query = `
         SELECT id, name as api_name, api_key, expires_at as expiry_date, created_at 
         FROM api_keys 
@@ -464,7 +463,7 @@ app.get('/user/dashboard', isUser, (req, res) => {
     });
 });
 
-// Generate API Key (User) - DIPERBAIKI
+// Generate API Key (User)
 app.post('/user/generate-api-key', isUser, (req, res) => {
     const { apiName } = req.body;
     
@@ -478,7 +477,7 @@ app.post('/user/generate-api-key', isUser, (req, res) => {
     const expiresAt = new Date();
     expiresAt.setFullYear(expiresAt.getFullYear() + 1);
 
-    // Query yang DIPERBAIKI
+    // Query
     const query = `
         INSERT INTO api_keys (user_id, name, api_key, expires_at, status, environment) 
         VALUES (?, ?, ?, ?, 'active', 'development')
@@ -505,8 +504,7 @@ app.post('/user/generate-api-key', isUser, (req, res) => {
     });
 });
 
-// Delete API Key (User) - DIPERBAIKI
-// Delete API Key (User) - HARD DELETE VERSION
+// Delete API Key (User)
 app.post('/user/api-keys/delete/:id', isUser, (req, res) => {
     const keyId = req.params.id;
     const userId = req.session.userId;
@@ -536,7 +534,7 @@ app.post('/user/api-keys/delete/:id', isUser, (req, res) => {
     });
 });
 
-// --- Admin Routes ---
+
 
 // Admin Login (alternatif)
 app.get('/admin/login', (req, res) => {
@@ -546,8 +544,7 @@ app.get('/admin/login', (req, res) => {
     res.send(getAdminLoginForm());
 });
 
-// Dashboard Admin - DIPERBAIKI
-// Dashboard Admin - DIPERBAIKI dengan message support
+// Dashboard Admin 
 app.get('/admin/dashboard', isAdmin, (req, res) => {
     const message = req.query.message || '';
     const messageType = req.query.type || '';
@@ -1111,7 +1108,7 @@ function getAdminLoginForm() {
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="admin123" required>
+                <input type="password" id="password" name="password" placeholder="admin1234" required>
             </div>
             <button type="submit"><i class="fas fa-sign-in-alt"></i> Login sebagai Admin</button>
         </form>
@@ -1125,12 +1122,8 @@ function getAdminLoginForm() {
     return getBaseHtml('Admin Login', content);
 }
 
-// ============================================
-// USER DASHBOARD HTML
-// ============================================
-// ============================================
-// USER DASHBOARD HTML - DIPERBAIKI
-// ============================================
+
+// USER DASHBOARD 
 function getUserDashboardHtml(firstName, email, apiKeys, totalKeys, activeKeys) {
     const apiKeyRows = apiKeys.map(k => {
         const status = checkKeyStatus(k.expiry_date);

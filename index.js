@@ -2251,6 +2251,6 @@ function getEditUserForm(user) {
 app.listen(port, () => {
     console.log(`🚀 Server berjalan di http://localhost:${port}`);
     console.log(`📊 Debug database: http://localhost:${port}/debug/database`);
-    console.log(`👤 Admin login: http://localhost:${port}/admin/login`);
-    console.log(`🔐 Default admin: admin@api.com / admin123`);
+   
+    
 });
